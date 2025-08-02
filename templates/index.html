@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+
+{% block title %}BeeShop Moldova - Produse Naturale de Albine din Republica Moldova{% endblock %}
+
+{% block content %}
+<!-- Hero Section - Secțiunea principală de prezentare -->
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Produse Naturale de <span class="highlight">Albine din Moldova</span>
+            </h1>
+            <p class="hero-description">
+                Descoperă beneficiile mierei naturale, ceară de albine, propolis și multe alte produse 
+                de înaltă calitate din Republica Moldova, direct de la apicultorul nostru local.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToProducts()">
+                    Vezi Produsele
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToAbout()">
+                    Află Mai Multe
+                </button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-bg"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Secțiunea cu statistici -->
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <h3>1000+</h3>
+                <p>Clienți Mulțumiți</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-award"></i>
+                <h3>15+</h3>
+                <p>Ani de Experiență</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-leaf"></i>
+                <h3>100%</h3>
+                <p>Natural</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-shipping-fast"></i>
+                <h3>24h</h3>
+                <p>Livrare Rapidă</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Secțiunea cu produse -->
+<section class="products" id="products">
+    <div class="container">
+        <div class="section-header">
+            <h2>Produsele Noastre</h2>
+            <p>Descoperă gama completă de produse naturale de albine</p>
+        </div>
+        
+        <!-- Filtrele pentru categorii -->
+        <div class="product-filters">
+            <button class="filter-btn active" data-category="all">Toate</button>
+            <button class="filter-btn" data-category="Miere">Miere</button>
+            <button class="filter-btn" data-category="Ceară">Ceară</button>
+            <button class="filter-btn" data-category="Propolis">Propolis</button>
+            <button class="filter-btn" data-category="Polen">Polen</button>
+            <button class="filter-btn" data-category="Lumânări">Lumânări</button>
+        </div>
+        
+        <!-- Grid-ul cu produse -->
+        <div class="products-grid" id="productsGrid">
+            {% for product in products %}
+            <div class="product-card" data-category="{{ product.category }}">
+                <div class="product-image">
+                    <img src="{{ url_for('static', filename='images/' + product.image) }}" 
+                         alt="{{ product.name }}" 
+                         onerror="this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'">
+                    <div class="product-overlay">
+                        <button class="quick-view-btn" onclick="quickView({{ product.id }})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    <p class="product-description">{{ product.description[:100] }}...</p>
+                    <div class="product-price">{{ "%.2f"|format(product.price) }} MDL</div>
+                    <div class="product-stock">
+                        <span class="stock-label">Stoc:</span>
+                        <span class="stock-value {% if product.stock > 0 %}in-stock{% else %}out-of-stock{% endif %}">
+                            {% if product.stock > 0 %}{{ product.stock }} bucăți{% else %}Stoc epuizat{% endif %}
+                        </span>
+                    </div>
+                    <button class="add-to-cart-btn" 
+                            onclick="addToCart({{ product.id }}, '{{ product.name }}', {{ product.price }})"
+                            {% if product.stock <= 0 %}disabled{% endif %}>
+                        <i class="fas fa-cart-plus"></i>
+                        Adaugă în Coș
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Secțiunea despre noi -->
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Despre BeeShop</h2>
+                <p>
+                    Suntem o familie de apicultori cu o tradiție de peste 15 ani în producerea 
+                    de produse naturale de albine. Pasunea noastră pentru albine și natura 
+                    ne-a determinat să împărtășim beneficiile acestor produse miraculoase.
+                </p>
+                <p>
+                    Toate produsele noastre sunt 100% naturale, fără aditivi sau conservanți, 
+                    și sunt produse în condiții higienice perfecte, respectând toate standardele 
+                    de calitate europene.
+                </p>
+                <div class="about-features">
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Produse 100% naturale</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Calitate garantată</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Livrare rapidă</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <div class="about-bg"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Secțiunea cu beneficii -->
+<section class="benefits">
+    <div class="container">
+        <div class="section-header">
+            <h2>Beneficiile Produselor de Albine</h2>
+            <p>De ce să alegi produsele noastre naturale</p>
+        </div>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Sănătate</h3>
+                <p>Produsele de albine sunt cunoscute pentru proprietățile lor curative și întăritoare ale sistemului imunitar.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Natural</h3>
+                <p>Toate produsele sunt 100% naturale, fără aditivi artificiali sau conservanți chimici.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3>Calitate</h3>
+                <p>Produse de înaltă calitate, produse în condiții higienice perfecte și testate în laborator.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3>Livrare Rapidă</h3>
+                <p>Livrare în 24 de ore în toată România, cu ambalaje speciale pentru protecția produselor.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Secțiunea cu testimoniale -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <h2>Ce Spun Clienții Noștri</h2>
+            <p>Experiențele reale ale clienților noștri</p>
+        </div>
+        
+        <div class="testimonials-slider" id="testimonialsSlider">
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <p>"Mierea de salcâm este absolut delicioasă! Am observat o îmbunătățire semnificativă a sănătății mele de când o consum zilnic."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Maria Popescu</h4>
+                            <span>Client Fidel</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <p>"Propolisul m-a ajutat să trec peste o perioadă dificilă de răceală. Recomand cu încredere!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Ion Vasilescu</h4>
+                            <span>Client Mulțumit</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <p>"Lumânările de ceară de albine sunt perfecte pentru relaxare. Aroma este naturală și plăcută."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Ana Dumitrescu</h4>
+                            <span>Client Fidel</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-controls">
+            <button class="prev-btn" onclick="changeTestimonial(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="next-btn" onclick="changeTestimonial(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Modal pentru vizualizarea rapidă a produselor -->
+<div class="quick-view-modal" id="quickViewModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalProductName"></h3>
+            <button class="close-modal" onclick="closeQuickView()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-product-image">
+                <img id="modalProductImage" src="" alt="">
+            </div>
+            <div class="modal-product-info">
+                <p id="modalProductDescription"></p>
+                <div class="modal-product-price" id="modalProductPrice"></div>
+                <div class="modal-product-stock" id="modalProductStock"></div>
+                <div class="quantity-selector">
+                    <label for="quantity">Cantitate:</label>
+                    <div class="quantity-controls">
+                        <button onclick="changeQuantity(-1)">-</button>
+                        <input type="number" id="quantity" value="1" min="1" max="10">
+                        <button onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+                <button class="add-to-cart-modal-btn" onclick="addToCartFromModal()">
+                    <i class="fas fa-cart-plus"></i>
+                    Adaugă în Coș
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Variabile globale pentru funcționalitatea paginii
+let currentTestimonial = 0;
+let currentProduct = null;
+
+// Funcția pentru scroll la secțiunea de produse
+function scrollToProducts() {
+    document.getElementById('products').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+}
+
+// Funcția pentru scroll la secțiunea despre noi
+function scrollToAbout() {
+    document.getElementById('about').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+}
+
+// Funcția pentru filtrarea produselor după categorie
+function filterProducts(category) {
+    const products = document.querySelectorAll('.product-card');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    
+    // Actualizăm butoanele active
+    filterBtns.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Filtrăm produsele
+    products.forEach(product => {
+        if (category === 'all' || product.dataset.category === category) {
+            product.style.display = 'block';
+            product.style.animation = 'fadeIn 0.5s ease-in';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+}
+
+// Funcția pentru schimbarea testimonialelor
+function changeTestimonial(direction) {
+    const testimonials = document.querySelectorAll('.testimonial');
+    const totalTestimonials = testimonials.length;
+    
+    // Ascundem testimonialul curent
+    testimonials[currentTestimonial].style.display = 'none';
+    
+    // Calculăm următorul testimonial
+    currentTestimonial = (currentTestimonial + direction + totalTestimonials) % totalTestimonials;
+    
+    // Afișăm noul testimonial
+    testimonials[currentTestimonial].style.display = 'block';
+}
+
+// Funcția pentru vizualizarea rapidă a produselor
+function quickView(productId) {
+    // Aici ar trebui să facem un request AJAX pentru a obține detaliile produsului
+    // Pentru moment, vom simula cu date statice
+    const modal = document.getElementById('quickViewModal');
+    const productName = document.getElementById('modalProductName');
+    const productImage = document.getElementById('modalProductImage');
+    const productDescription = document.getElementById('modalProductDescription');
+    const productPrice = document.getElementById('modalProductPrice');
+    const productStock = document.getElementById('modalProductStock');
+    
+    // Simulăm datele produsului (în realitate ar veni de la server)
+    const productData = {
+        name: 'Produs ' + productId,
+        image: '/static/images/honey1.jpg',
+        description: 'Descriere detaliată a produsului...',
+        price: '25.00 RON',
+        stock: 'În stoc'
+    };
+    
+    productName.textContent = productData.name;
+    productImage.src = productData.image;
+    productDescription.textContent = productData.description;
+    productPrice.textContent = productData.price;
+    productStock.textContent = productData.stock;
+    
+    currentProduct = productId;
+    modal.style.display = 'flex';
+}
+
+// Funcția pentru închiderea modalului
+function closeQuickView() {
+    document.getElementById('quickViewModal').style.display = 'none';
+}
+
+// Funcția pentru schimbarea cantității în modal
+function changeQuantity(delta) {
+    const quantityInput = document.getElementById('quantity');
+    let newQuantity = parseInt(quantityInput.value) + delta;
+    
+    if (newQuantity >= 1 && newQuantity <= 10) {
+        quantityInput.value = newQuantity;
+    }
+}
+
+// Funcția pentru adăugarea în coș din modal
+function addToCartFromModal() {
+    const quantity = parseInt(document.getElementById('quantity').value);
+    if (currentProduct) {
+        addToCart(currentProduct, 'Produs ' + currentProduct, 25.00, quantity);
+        closeQuickView();
+    }
+}
+
+// Adăugăm event listeners pentru filtrele de produse
+document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterProducts(this.dataset.category);
+        });
+    });
+    
+    // Inițializăm primul testimonial
+    const testimonials = document.querySelectorAll('.testimonial');
+    testimonials.forEach((testimonial, index) => {
+        if (index !== 0) testimonial.style.display = 'none';
+    });
+});
+</script>
+{% endblock %} 

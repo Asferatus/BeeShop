@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <!-- Meta tag-uri pentru responsivitate și encoding -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BeeShop Moldova - Produse naturale de albine din Republica Moldova. Miere, ceară, propolis și multe altele.">
+    
+    <!-- Titlul paginii - va fi suprascris în fiecare pagină -->
+    <title>{% block title %}BeeShop Moldova - Produse de Albine{% endblock %}</title>
+    
+    <!-- Font-uri Google pentru un design modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Iconițe Font Awesome pentru design modern -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS-ul nostru principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- CSS specific pentru fiecare pagină -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header-ul site-ului cu navigare -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <!-- Logo-ul site-ului -->
+                <div class="nav-logo">
+                    <a href="{{ url_for('home') }}">
+                        <i class="fas fa-bee"></i>
+                        <span>BeeShop Moldova</span>
+                    </a>
+                </div>
+                
+                <!-- Meniul de navigare principal -->
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="{{ url_for('home') }}" class="nav-link">Acasă</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('about') }}" class="nav-link">Despre Noi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('contact') }}" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+                
+                <!-- Butonul pentru coșul de cumpărături -->
+                <div class="nav-cart">
+                    <button class="cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+                
+                <!-- Butonul pentru meniul mobil -->
+                <div class="hamburger" onclick="toggleMobileMenu()">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Conținutul principal al paginii -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer-ul site-ului -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>BeeShop Moldova</h3>
+                <p>Produse naturale de albine de cea mai înaltă calitate din Republica Moldova, direct de la apicultorul nostru local.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Produse</h4>
+                <ul>
+                    <li><a href="#">Miere</a></li>
+                    <li><a href="#">Ceară</a></li>
+                    <li><a href="#">Propolis</a></li>
+                    <li><a href="#">Pătrunjel</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Informații</h4>
+                <ul>
+                    <li><a href="{{ url_for('about') }}">Despre Noi</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a href="#">Termeni și Condiții</a></li>
+                    <li><a href="#">Politica de Confidențialitate</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-phone"></i> +373 22 123 456</p>
+                <p><i class="fas fa-envelope"></i> info@beeshop.md</p>
+                <p><i class="fas fa-map-marker-alt"></i> Strada Albinelor, Nr. 15, Chișinău, Republica Moldova</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 BeeShop Moldova. Toate drepturile rezervate. Republica Moldova.</p>
+        </div>
+    </footer>
+
+    <!-- Coșul de cumpărături (sidebar) -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Coșul tău</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Elementele din coș vor fi adăugate dinamic prin JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0.00 MDL</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Finalizează Comanda</button>
+        </div>
+    </div>
+
+    <!-- Overlay pentru coșul de cumpărături -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- JavaScript-ul principal -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <!-- JavaScript specific pentru fiecare pagină -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 

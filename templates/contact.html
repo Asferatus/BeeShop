@@ -1,0 +1,389 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - BeeShop Moldova{% endblock %}
+
+{% block content %}
+<!-- Hero Section pentru pagina Contact -->
+<section class="page-hero contact-hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Contactează-ne</h1>
+            <p>Suntem aici să te ajutăm. Contactează-ne pentru orice întrebare!</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <i class="fas fa-clock"></i>
+                    <span>Răspuns în 24h</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-phone"></i>
+                    <span>Suport 24/7</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Secțiunea principală de contact -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-content">
+            <!-- Informațiile de contact -->
+            <div class="contact-info">
+                <div class="contact-header">
+                    <h2>Informații de Contact</h2>
+                    <p>Suntem disponibili pentru a răspunde la întrebările tale și să te ajutăm 
+                       să alegi produsele perfecte pentru tine.</p>
+                </div>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Adresa</h3>
+                            <p>Strada Albinelor, Nr. 15<br>Chișinău, Republica Moldova</p>
+                            <a href="#" class="contact-link">Vezi pe hartă</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Telefon</h3>
+                            <p>+373 22 123 456<br>+373 69 123 456</p>
+                            <a href="tel:+37322123456" class="contact-link">Sună acum</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p>info@beeshop.md<br>comenzi@beeshop.md</p>
+                            <a href="mailto:info@beeshop.md" class="contact-link">Trimite email</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Program</h3>
+                            <p>Luni - Vineri: 9:00 - 18:00<br>Sâmbătă: 9:00 - 14:00</p>
+                            <span class="status-badge open">Deschis acum</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <h3>Urmărește-ne</h3>
+                    <p>Fii la curent cu ultimele noutăți și oferte speciale</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-link facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="#" class="social-link instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="#" class="social-link twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="#" class="social-link youtube">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formularul de contact -->
+            <div class="contact-form">
+                <div class="form-header">
+                    <h2>Trimite-ne un Mesaj</h2>
+                    <p>Completează formularul de mai jos și vom răspunde în cel mai scurt timp</p>
+                </div>
+                
+                <form id="contactForm" onsubmit="submitContactForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Numele tău *</label>
+                            <input type="text" id="name" name="name" required>
+                            <i class="fas fa-user"></i>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" id="phone" name="phone">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subiect *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Alege un subiect</option>
+                                <option value="comanda">Întrebare despre comandă</option>
+                                <option value="produse">Întrebare despre produse</option>
+                                <option value="livrare">Întrebare despre livrare</option>
+                                <option value="retur">Retur sau reclamatie</option>
+                                <option value="alta">Altă întrebare</option>
+                            </select>
+                            <i class="fas fa-tag"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mesajul tău *</label>
+                        <textarea id="message" name="message" rows="5" required 
+                                  placeholder="Scrie-ne mesajul tău aici..."></textarea>
+                        <i class="fas fa-comment"></i>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <span class="checkmark"></span>
+                            Vreau să primesc newsletter-ul cu oferte speciale
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Trimite Mesajul</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Secțiunea cu întrebări frecvente -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Întrebări Frecvente</h2>
+            <p>Răspunsuri la cele mai comune întrebări</p>
+        </div>
+        
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Cum pot plasa o comandă?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Poți plasa o comandă direct pe site-ul nostru, prin telefon sau prin email. 
+                       Pentru comenzi online, adaugă produsele în coș și urmează pașii de checkout.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Care sunt costurile de livrare?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Livrarea este gratuită pentru comenzi peste 100 RON. Pentru comenzi sub această 
+                       valoare, costul de livrare este de 15 RON în București și 25 RON în restul țării.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>În cât timp primesc comanda?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Livrăm în 24 de ore în București și în 2-3 zile lucrătoare în restul țării. 
+                       Pentru comenzi plasate în weekend, livrarea se face în prima zi lucrătoare.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Produsele sunt 100% naturale?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Da, toate produsele noastre sunt 100% naturale, fără aditivi artificiali, 
+                       conservanți sau coloranți. Sunt produse direct de la albinele noastre.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Cum pot returna un produs?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Poți returna produsele în termen de 14 zile de la primire, în ambalajul original. 
+                       Contactează-ne pentru a iniția procesul de returnare.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Oferiți garanție pentru produse?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Da, toate produsele noastre beneficiază de garanție de calitate. Dacă nu ești 
+                       mulțumit de produs, îl poți returna în termen de 14 zile.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Secțiunea cu harta -->
+<section class="map-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Unde Ne Găsești</h2>
+            <p>Vizitează-ne în magazinul nostru</p>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-content">
+                <div class="map-info">
+                    <h3>BeeShop - Magazinul Principal</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Strada Albinelor, Nr. 1, București</p>
+                    <p><i class="fas fa-clock"></i> Luni - Vineri: 9:00 - 18:00</p>
+                    <p><i class="fas fa-phone"></i> +40 123 456 789</p>
+                    <a href="#" class="directions-btn">
+                        <i class="fas fa-directions"></i>
+                        Obține direcții
+                    </a>
+                </div>
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Harta va fi afișată aici</h3>
+                    <p>Strada Albinelor, Nr. 1, București</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Funcția pentru trimiterea formularului de contact
+function submitContactForm(event) {
+    event.preventDefault();
+    
+    // Obținem datele din formular
+    const formData = new FormData(event.target);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        newsletter: formData.get('newsletter') === 'on'
+    };
+    
+    // Simulăm trimiterea formularului (în realitate ar fi un request AJAX)
+    console.log('Datele formularului:', data);
+    
+    // Afișăm un mesaj de succes
+    showNotification('Mesajul tău a fost trimis cu succes! Vom răspunde în cel mai scurt timp.', 'success');
+    
+    // Resetăm formularul
+    event.target.reset();
+}
+
+// Funcția pentru afișarea notificărilor
+function showNotification(message, type = 'info') {
+    // Creăm elementul de notificare
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+        <button onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    // Adăugăm notificarea la pagină
+    document.body.appendChild(notification);
+    
+    // Eliminăm notificarea după 5 secunde
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+// Funcția pentru toggle-ul întrebărilor frecvente
+function toggleFAQ(element) {
+    const answer = element.nextElementSibling;
+    const icon = element.querySelector('i');
+    
+    // Toggle pentru afișarea răspunsului
+    if (answer.style.maxHeight) {
+        answer.style.maxHeight = null;
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+    } else {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+    }
+}
+
+// Adăugăm event listeners când pagina se încarcă
+document.addEventListener('DOMContentLoaded', function() {
+    // Validare pentru formular
+    const contactForm = document.getElementById('contactForm');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    
+    // Validare pentru email
+    emailInput.addEventListener('blur', function() {
+        const email = this.value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (email && !emailRegex.test(email)) {
+            this.classList.add('error');
+            showNotification('Te rugăm să introduci o adresă de email validă.', 'error');
+        } else {
+            this.classList.remove('error');
+        }
+    });
+    
+    // Validare pentru telefon
+    phoneInput.addEventListener('blur', function() {
+        const phone = this.value;
+        const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+        
+        if (phone && !phoneRegex.test(phone)) {
+            this.classList.add('error');
+            showNotification('Te rugăm să introduci un număr de telefon valid.', 'error');
+        } else {
+            this.classList.remove('error');
+        }
+    });
+});
+</script>
+{% endblock %} 
